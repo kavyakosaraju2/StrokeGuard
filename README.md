@@ -5,8 +5,11 @@ StrokeGuard is a Machine Learning web application that predicts the probability 
 
 It uses XGBoost with hyperparameter tuning and SHAP explainability, and is deployed using Streamlit.
 
-## Architecutre Diagram
-![Architecutre Diagram](docs/System architecture diagram.png)
+## 🏗 System Architecture
+
+![System Architecture](docs/architecture_diagram.png)
+
+
 
 
 ##  Features
