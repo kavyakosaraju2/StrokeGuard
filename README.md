@@ -6,7 +6,7 @@ StrokeGuard is a Machine Learning web application that predicts the probability 
 It uses XGBoost with hyperparameter tuning and SHAP explainability, and is deployed using Streamlit.
 
 
-## 📌 Features
+##  Features
 - XGBoost classifier with hyperparameter tuning
 - Handles class imbalance using scale_pos_weight
 - ROC-AUC optimized model
@@ -16,14 +16,14 @@ It uses XGBoost with hyperparameter tuning and SHAP explainability, and is deplo
 
 ---
 
-## 📊 Model Performance
+##  Model Performance
 - ROC-AUC: ~0.85
 - Optimized Threshold: 0.6
 - High recall for stroke class (medical priority)
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 - Python
 - Scikit-learn
 - XGBoost
@@ -33,7 +33,7 @@ It uses XGBoost with hyperparameter tuning and SHAP explainability, and is deplo
 
 ---
 
-## 🗂 Project Structure
+##  Project Structure
 StrokeGuard/
 │── app.py
 │── main.py
@@ -44,13 +44,13 @@ StrokeGuard/
 
 ---
 
-## 🚀 Live Demo
+##  Live Demo
 🔗 https://kavyakosaraju2-strokeguard-app-rcyxcs.streamlit.app/
 
 
 ---
 
-⚠️ Disclaimer
+ Disclaimer
 
 This project is for educational purposes only and should not replace medical advice.
 Author
