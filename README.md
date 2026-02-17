@@ -5,13 +5,6 @@ StrokeGuard is a Machine Learning web application that predicts the probability 
 
 It uses XGBoost with hyperparameter tuning and SHAP explainability, and is deployed using Streamlit.
 
----
-
-## 🚀 Live Demo
-🔗 https://kavyakosaraju2-strokeguard-app-rcyxcs.streamlit.app/
-
-
----
 
 ## 📌 Features
 - XGBoost classifier with hyperparameter tuning
@@ -47,6 +40,15 @@ StrokeGuard/
 │── requirements.txt
 │── data/
 │── models/
+
+
+---
+
+## 🚀 Live Demo
+🔗 https://kavyakosaraju2-strokeguard-app-rcyxcs.streamlit.app/
+
+
+---
 
 ⚠️ Disclaimer
 
