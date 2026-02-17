@@ -5,6 +5,7 @@ import pandas as pd
 import joblib
 import shap
 import matplotlib.pyplot as plt
+import json
 
 # -------------------------
 # Page Configuration
@@ -19,6 +20,14 @@ st.set_page_config(
 # -------------------------
 model = joblib.load("models/strokeguard_xgb_model.pkl")
 feature_columns = joblib.load("models/feature_columns.pkl")
+
+
+
+
+with open("models/model_metrics.json", "r") as f:
+    model_metrics = json.load(f)
+    
+
 
 # Create SHAP explainer
 explainer = shap.TreeExplainer(model)
@@ -90,7 +99,6 @@ input_dict["smoking_status_smokes"] = 1 if smoking_status == "smokes" else 0
 
 input_df = pd.DataFrame([input_dict])
 input_df = input_df.reindex(columns=feature_columns, fill_value=0)
-
 # -------------------------
 # Prediction
 # -------------------------
@@ -101,16 +109,20 @@ if st.button(" Predict Stroke Risk"):
         probability = model.predict_proba(input_df)[0][1]
         risk_percent = probability * 100
 
+        # Custom tuned threshold
+        threshold = 0.6
+        prediction = 1 if probability >= threshold else 0
+
         st.markdown("##  Prediction Result")
         st.markdown(f"### Stroke Probability: {risk_percent:.2f}%")
-
         st.progress(min(int(risk_percent), 100))
 
+        # Risk Category
         if probability < 0.30:
             st.success("🟢 Low Stroke Risk")
             st.info("Maintain healthy lifestyle and regular checkups.")
 
-        elif 0.30 <= probability < 0.60:
+        elif 0.30 <= probability < threshold:
             st.warning("🟡 Moderate Stroke Risk")
             st.info("Lifestyle improvement and monitoring recommended.")
 
@@ -118,50 +130,36 @@ if st.button(" Predict Stroke Risk"):
             st.error("🔴 High Stroke Risk")
             st.info("Immediate medical consultation recommended.")
 
+        st.caption("Decision threshold set at 0.60 for optimized medical recall-performance balance.")
+
         # -------------------------
         # SHAP Explanation
         # -------------------------
         st.markdown("##  Why This Prediction Was Made")
-        # Calculate SHAP values
+
         shap_values = explainer.shap_values(input_df)
-        # Convert to DataFrame for easier processing
+
         shap_df = pd.DataFrame({
             "Feature": input_df.columns,
             "Impact": shap_values[0]
         })
-        # Take absolute importance and sort
+
         shap_df["AbsImpact"] = shap_df["Impact"].abs()
         shap_df = shap_df.sort_values(by="AbsImpact", ascending=False).head(5)
-        # Replace feature names with clean labels
+
         shap_df["Feature"] = shap_df["Feature"].map(feature_name_map)
+
         st.markdown("### 🔎 Top Factors Influencing This Prediction")
-        # Plot clean bar chart
-        # Dynamic color based on impact
+
         colors = ["red" if val > 0 else "blue" for val in shap_df["Impact"]]
+
         fig, ax = plt.subplots()
-        ax.barh(
-            shap_df["Feature"],
-            shap_df["Impact"],
-            color=colors
-        )
+        ax.barh(shap_df["Feature"], shap_df["Impact"], color=colors)
         ax.set_xlabel("Impact on Stroke Risk")
         ax.set_title("Feature Contribution")
         ax.axvline(0, color="black", linewidth=1)
         ax.invert_yaxis()
+
         st.pyplot(fig)
         st.caption("🔴 Red bars increase stroke risk | 🔵 Blue bars decrease stroke risk")
-
-
-
-        
-
-# -------------------------
-# Disclaimer
-# -------------------------
-st.markdown("---")
-st.caption(
-    "⚠️ Disclaimer: This AI system is developed for educational purposes only. "
-    "It should not replace professional medical consultation."
-)
-
 
