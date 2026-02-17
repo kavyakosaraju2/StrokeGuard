@@ -14,14 +14,14 @@ It uses XGBoost with hyperparameter tuning and SHAP explainability, and is deplo
 - SHAP explainability (feature impact visualization)
 - Interactive Streamlit web app
 
----
+
 
 ##  Model Performance
 - ROC-AUC: ~0.85
 - Optimized Threshold: 0.6
 - High recall for stroke class (medical priority)
 
----
+
 
 ##  Tech Stack
 - Python
@@ -31,7 +31,7 @@ It uses XGBoost with hyperparameter tuning and SHAP explainability, and is deplo
 - Streamlit
 - Matplotlib
 
----
+
 
 ##  Project Structure
 StrokeGuard/
@@ -42,13 +42,13 @@ StrokeGuard/
 │── models/
 
 
----
+
 
 ##  Live Demo
 🔗 https://kavyakosaraju2-strokeguard-app-rcyxcs.streamlit.app/
 
 
----
+
 
  Disclaimer
 
